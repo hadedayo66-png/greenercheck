@@ -1,0 +1,21 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --foreground: #0a0a0a;
+  --background: #fafafa;
+  --muted: #737373;
+  --border: #e5e5e5;
+  --accent: #2563eb;
+}
+
+body {
+  color: var(--foreground);
+  background: var(--background);
+}
+
+/* Default embed accent if inline style is missing (overridden by EmbedCalculatorClient). */
+.embed-calculator-root {
+  --embed-primary: #16a34a;
+}

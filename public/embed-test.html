@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en-CA">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Sunrise Energy — Ontario Solar & Heat Pump Specialists</title>
+    <style>
+      body {
+        font-family: system-ui, sans-serif;
+        max-width: 860px;
+        margin: 0 auto;
+        padding: 40px 20px;
+        color: #111;
+      }
+      h1 {
+        font-size: 28px;
+        font-weight: 600;
+        margin-bottom: 8px;
+      }
+      p {
+        color: #555;
+        margin-bottom: 32px;
+        line-height: 1.6;
+      }
+      .section {
+        background: #f9fafb;
+        border-radius: 12px;
+        padding: 32px;
+        margin-top: 32px;
+      }
+      .section h2 {
+        font-size: 18px;
+        margin-bottom: 16px;
+      }
+      .note {
+        font-size: 14px;
+        color: #6b7280;
+        margin-top: 24px;
+      }
+      code {
+        font-size: 13px;
+        background: #e5e7eb;
+        padding: 2px 6px;
+        border-radius: 4px;
+      }
+    </style>
+    <script>
+      // Register before embed.js runs so we never miss a lead message from the iframe.
+      window.addEventListener("message", function (e) {
+        if (e.origin !== "http://localhost:3000") return;
+        if (e.data && e.data.type === "GREENCHECK_EMBED_LEAD") {
+          console.log("[embed-test] GREENCHECK_EMBED_LEAD from iframe:", e.data);
+        }
+      });
+    </script>
+  </head>
+  <body>
+    <h1>Sunrise Energy</h1>
+    <p>
+      Ontario's trusted solar and heat pump specialists. Serving Barrie, Orillia,
+      Collingwood, and Simcoe County since 2018.
+    </p>
+
+    <div class="section">
+      <h2>Find out what grants you qualify for</h2>
+      <!--
+        Requires: npm run dev (Next.js on http://localhost:3000).
+        Production: change src to https://your-domain.com/embed.js
+      -->
+      <script
+        src="http://localhost:3000/embed.js"
+        data-installer-id="demo"
+        data-primary-color="#f97316"
+        data-company-name="Sunrise Energy"
+      ></script>
+    </div>
+
+    <p class="note">
+      With <code>npm run dev</code> running, open either
+      <strong><code>http://localhost:3000/embed-test.html</code></strong>
+      (recommended — avoids browser restrictions on <code>file://</code> loading
+      <code>http://localhost</code>) or
+      <code>file:///…/public/embed-test.html</code>.
+      In DevTools → Console, look for
+      <code>[embed-test] GREENCHECK_EMBED_LEAD</code> after a successful lead submit
+      (requires <code>/api/subscribe</code> to return success, e.g. valid
+      <code>RESEND_API_KEY</code>). The dev server terminal logs
+      <code>[embed/webhook] POST received</code> when the parent forwards the lead.
+    </p>
+  </body>
+</html>

@@ -1,0 +1,9 @@
+# Static fallback / reference. With Next.js App Router, /robots.txt is generated from app/robots.ts
+# (includes NEXT_PUBLIC_SITE_URL for Sitemap). Use this file only on static hosts or as a template.
+
+User-agent: *
+Allow: /
+Disallow: /api/
+Disallow: /embed/
+
+Sitemap: https://example.com/sitemap.xml
