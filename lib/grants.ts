@@ -89,12 +89,31 @@ export const GRANT_DATA: Record<UpgradeId, GrantUpgradeRow> = {
 
 export type HomeDetails = {
   homeType: string;
-  yearBuilt: number;
+  /** Era band label from the calculator (e.g. pre1980, 1980s). */
+  yearBuilt: string;
   heatingType: string;
   sqftRange: string;
   /** Defaults to Ontario when omitted. */
   province?: string;
 };
+
+/** Representative year for audit scoring from era labels or numeric strings. */
+export function effectiveAuditYear(yearBuilt: string): number {
+  const key = yearBuilt.trim().toLowerCase().replace(/\s+/g, "");
+  const byLabel: Record<string, number> = {
+    pre1980: 1975,
+    "1980s": 1990,
+    "2000s": 2008,
+    post2015: 2020,
+    before_1980: 1975,
+    y1980_1999: 1990,
+    y2000_2015: 2008,
+    after_2015: 2020,
+  };
+  if (key in byLabel) return byLabel[key];
+  const n = Number(yearBuilt);
+  return Number.isFinite(n) ? n : 2000;
+}
 
 export type GrantCalculationResult = {
   federal: number;
@@ -193,7 +212,7 @@ function normalizeHeatingType(raw: string): string {
 }
 
 export function auditPriority(homeDetails: HomeDetails): AuditPriorityLevel {
-  const year = homeDetails.yearBuilt;
+  const year = effectiveAuditYear(homeDetails.yearBuilt);
   const h = normalizeHeatingType(homeDetails.heatingType);
 
   const fossil =

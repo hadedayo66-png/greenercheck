@@ -13,7 +13,7 @@ const NRCAN_AUDITOR_URL =
 const homeDetailsSchema = z
   .object({
     homeType: z.string().optional(),
-    yearBuilt: z.coerce.number().optional(),
+    yearBuilt: z.string().min(1).optional(),
     heatingType: z.string().optional(),
     sqftRange: z.string().optional(),
     province: z.string().optional(),

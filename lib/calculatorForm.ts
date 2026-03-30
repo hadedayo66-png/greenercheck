@@ -46,12 +46,13 @@ export const calculatorStep2Schema = calculatorFormSchema.pick({
   selectedUpgrades: true,
 });
 
-const YEAR_BAND_TO_YEAR: Record<CalculatorFormData["yearBuiltBand"], number> = {
-  before_1980: 1975,
-  y1980_1999: 1990,
-  y2000_2015: 2008,
-  after_2015: 2020,
-};
+const YEAR_BAND_TO_LABEL: Record<CalculatorFormData["yearBuiltBand"], string> =
+  {
+    before_1980: "pre1980",
+    y1980_1999: "1980s",
+    y2000_2015: "2000s",
+    after_2015: "post2015",
+  };
 
 const HEATING_TO_GRANTS: Record<
   CalculatorFormData["heatingType"],
@@ -79,7 +80,7 @@ export function mapCalculatorFormToInput(
     selectedUpgrades: data.selectedUpgrades,
     homeDetails: {
       homeType: data.homeType,
-      yearBuilt: YEAR_BAND_TO_YEAR[data.yearBuiltBand],
+      yearBuilt: YEAR_BAND_TO_LABEL[data.yearBuiltBand],
       heatingType: HEATING_TO_GRANTS[data.heatingType],
       sqftRange: SQFT_TO_RANGE[data.sqftBand],
       province: "ON",
