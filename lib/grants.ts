@@ -9,7 +9,7 @@ export type UpgradeId =
   | "windows_doors"
   | "heat_pump_water_heater"
   | "solar_pv"
-  | "ev_charger"
+  | "ev_charger_home"
   | "air_sealing";
 
 export type GrantUpgradeRow = {
@@ -71,8 +71,12 @@ export const GRANT_DATA: Record<UpgradeId, GrantUpgradeRow> = {
     ontario_ieso: 5_000,
     ontario: 0,
   },
-  ev_charger: {
-    label: "EV charger",
+  // EVAP (April 2026) covers EV vehicle purchase rebates, not
+  // home charger installation. Charger hardware grant remains
+  // $600 under Canada Greener Homes. Update if NRCan adds
+  // charger-specific EVAP stream.
+  ev_charger_home: {
+    label: "Home EV charger (Level 2)",
     federal: 600,
     ontario_enbridge: 0,
     ontario_ieso: 0,

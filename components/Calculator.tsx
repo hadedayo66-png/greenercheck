@@ -83,6 +83,7 @@ const SQFT_BANDS = [
 type UpgradeRow = {
   id: UpgradeId;
   label: string;
+  subLabel?: string;
   Icon: typeof Fan;
   /** Toggling adds/removes all ids together (e.g. attic + wall). */
   toggleIds?: readonly UpgradeId[];
@@ -104,7 +105,12 @@ const UPGRADE_ROWS: UpgradeRow[] = [
     Icon: Droplets,
   },
   { id: "solar_pv", label: "Solar PV system", Icon: Sun },
-  { id: "ev_charger", label: "EV charger", Icon: BatteryCharging },
+  {
+    id: "ev_charger_home",
+    label: "Home EV charger (Level 2)",
+    subLabel: "EVAP + Greener Homes eligible",
+    Icon: BatteryCharging,
+  },
   { id: "air_sealing", label: "Air sealing", Icon: AirVent },
 ];
 
@@ -546,8 +552,15 @@ export function Calculator({
                           aria-hidden="true"
                         />
                       </span>
-                      <span className="font-medium leading-snug text-neutral-900">
-                        {row.label}
+                      <span className="min-w-0">
+                        <span className="block font-medium leading-snug text-neutral-900">
+                          {row.label}
+                        </span>
+                        {row.subLabel ? (
+                          <span className="mt-0.5 block text-xs text-neutral-500">
+                            {row.subLabel}
+                          </span>
+                        ) : null}
                       </span>
                     </div>
                   </button>

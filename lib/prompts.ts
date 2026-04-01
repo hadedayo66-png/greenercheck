@@ -1,10 +1,16 @@
-import type { CalculatorInput, HomeDetails } from "@/lib/grants";
+import type { CalculatorInput, HomeDetails, UpgradeId } from "@/lib/grants";
 import {
   AUDIT_PRIORITY,
   calculateGrants,
   estimateEligibleAmounts,
   GRANT_DATA,
 } from "@/lib/grants";
+
+/** Extra Claude context for specific upgrade lines (beyond GRANT_DATA label). */
+const UPGRADE_PROMPT_DESCRIPTIONS: Partial<Record<UpgradeId, string>> = {
+  ev_charger_home:
+    "home Level 2 EV charger installation (eligible under Canada Greener Homes grant and the new federal EVAP program launching April 2026)",
+};
 
 export function buildAuditPrompt(input: CalculatorInput) {
   const rows = estimateEligibleAmounts(input);
@@ -21,9 +27,12 @@ export function buildAuditPrompt(input: CalculatorInput) {
   const upgrades = input.selectedUpgrades
     .map((id) => {
       const row = GRANT_DATA[id];
-      return row
-        ? `- ${row.label} (federal $${row.federal.toLocaleString("en-CA")}, Ontario streams as per calculator)`
-        : `- ${id}`;
+      if (!row) return `- ${id}`;
+      const desc = UPGRADE_PROMPT_DESCRIPTIONS[id];
+      const amounts = `federal $${row.federal.toLocaleString("en-CA")}, Ontario streams as per calculator`;
+      return desc
+        ? `- ${row.label}: ${desc}; ${amounts}`
+        : `- ${row.label} (${amounts})`;
     })
     .join("\n");
 
